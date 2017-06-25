@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "Nikiafy",
-   "version": "1.0",
+   "version": "1.1.0",
 
    // "default_locale": "en",
    "description": "practice extension. Aims to replace all images on a website with max nikias",
