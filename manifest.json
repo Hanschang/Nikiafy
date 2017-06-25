@@ -1,0 +1,28 @@
+{
+   "manifest_version": 2,
+   "name": "Nikiafy",
+   "version": "1.0",
+
+   // "default_locale": "en",
+   "description": "practice extension. Aims to replace all images on a website with max nikias",
+   "icons": {  "16": "img/icon16.png",
+               "48": "img/icon48.png",
+               "128": "img/icon128.png" },
+
+   "browser_action": {
+      "default icons": {
+         "19": "img/icon19.png",
+         "38": "img/icon38.png"
+      },
+      "default_popup": "popup.html"
+   },
+
+   "content_scripts": [
+      {
+         "matches": ["http://*/*", "https://*/*"],
+         "js": ["js/jquery-latest.js", "js/nikiafy.js"],
+         "run_at": "document_start"
+      }
+   ]
+
+}
