@@ -9,6 +9,9 @@ It replaces all images on a website into one of our beloved USC president
 TODO
 ---
 1. Fix issue with newly loaded photos not being processed
+2. Only replace images with nikias photos of similar dimensions, to prevent over-stretching the images
+3. Add button in popup to enable/disable the extension
+4. In the popup, display the number of images replaced on the current tab
 
 Changelog
 ---
