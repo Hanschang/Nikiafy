@@ -1,5 +1,4 @@
 // Nikiafy code
-
 // URL for all the nikia photos
 var nikias = [
    "https://news.usc.edu/files/2015/09/nikias.1800x1200-824x549.jpg",
@@ -14,47 +13,58 @@ var nikias = [
    "https://i.ytimg.com/vi/uj9z93ulL-w/maxresdefault.jpg",
    "https://i.vimeocdn.com/video/514048321_1280x720.jpg"
 ]
+// Global variable
+var totalImage = 0;
 
-var totalImage;
-// On page load, replace all images with a rondom one from nikias
-// $(document).ready(function() {
-$(document).ready(function() {
-   nikiafy();   
-})
+// Reset totalImage on loading page, call nikiafy
+window.onload = function() {
+   totalImage = 0;
+   nikiafy();
+}
 
+// On scroll, call nikiafy, and tell the popup to update totalImage
+window.onscroll = function() {
+   nikiafy();
+   chrome.runtime.sendMessage({
+      "request": "updatePopup",
+      "info": totalImage
+   });
+}
+
+// Main function to replace images
 function nikiafy() {
+   // Get all the images on the page
    var images = document.getElementsByTagName("img");
-   totalImage = images.length;
-   var imagesLoaded = 0;
-   console.log(totalImage);
-   for(var i = 0; i < totalImage; i++) {
-      images[i].addEventListener('load', function() {
-         imagesLoaded ++;
-      }, false);
-      if(imagesLoaded == totalImage) {
-         break;
-      }
-   }
 
-   for(var i = 0; i < images.length; i++)
-   {
-      images[i].src = randomize();
+   // Check each one to see if they are already a nikias photo
+   //if not, call randomize and replace, update totalImage replace
+   for(var i = 0; i < images.length; i++) {
+      var isInArray = inArray(images[i].src, nikias);
+      if(!isInArray) {
+         images[i].src = randomize();
+         totalImage++;
+      }
    }
 }
 
+// Send the totalImage variable to popup on request
 chrome.runtime.onMessage.addListener(function (msg, sender, response) {
-   console.log("notified nikiafy.js");
+   // console.log("notified nikiafy.js");
    if(msg.request === 'getNumImage') {
-      console.log("returning num");
+      // console.log("returning num");
       response(totalImage);
    }
 })
 
-function getImageNum() {
-   return totalImage;
+// Check if a image is already part of the array
+function inArray(check, array) {
+   for(var i = 0; i < array.length; i++) {
+      if(check === array[i]) return 1;
+   }
+   return 0;
 }
 
-
+// Return a random image src
 function randomize() {
    var randNumber = Math.floor(Math.random() * nikias.length);
 
