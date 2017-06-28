@@ -1,7 +1,7 @@
 {
    "manifest_version": 2,
    "name": "Nikiafy",
-   "version": "1.2.0",
+   "version": "1.4.0",
 
    // "default_locale": "en",
    "description": "practice extension. Aims to replace all images on a website with max nikias",
@@ -20,7 +20,7 @@
    "content_scripts": [
       {
          "matches": ["http://*/*", "https://*/*"],
-         "js": ["js/jquery-latest.js", "js/nikiafy.js"],
+         "js": ["js/nikiafy.js"],
          "run_at": "document_start"
       }
    ]
